@@ -1,4 +1,4 @@
-module.exports.folders = [
+module.exports.meals = [
     {
         id: 1,
         name: "Breakfast",

@@ -1,15 +1,15 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const folders = require('./folders');
+const meals = require('./meals');
 
 app.use(cors());
 
 //setting the port.
 app.set('port', process.env.PORT || 3000);
 
-app.get('/folders',(req, res) => {
- res.json(folders);
+app.get('/meals',(req, res) => {
+ res.json(meals);
 });
 
 //Binding to localhost://3000
