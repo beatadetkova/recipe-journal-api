@@ -1,4 +1,4 @@
-module.exports.recipes = {
+module.exports = {
     Breakfast: [
         {
             id: 1,

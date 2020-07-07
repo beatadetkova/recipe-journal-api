@@ -1,4 +1,4 @@
-module.exports.meals = [
+module.exports = [
     {
         id: 1,
         name: "Breakfast",
