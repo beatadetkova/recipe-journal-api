@@ -24,6 +24,10 @@ app.post('/meals/:id/recipes/add', function (req, res) {
   const mealId = req.params.id;
   var recipes = require('./recipes.json');
   var body = req.body;
+  if (!body.recipeName) {
+    res.status(400).json({ message: 'Recipe name missing' })
+    return
+  }
   body.id = Date.now();
   recipes[mealId] = recipes[mealId].concat([body]);
   fs.writeFileSync('recipes.json', JSON.stringify(recipes, null, 4));
