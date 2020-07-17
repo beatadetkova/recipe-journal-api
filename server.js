@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const meals = require('./meals.json');
 const fs = require('fs');
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
@@ -14,39 +13,20 @@ const dbName = 'recipe-journal-db';
 
 // Create a new MongoClient
 const client = new MongoClient(url);
-
-const findDocuments = function(db, callback) {
-  // Get the documents collection
-  const collection = db.collection('meals');
-  // Find some documents
-  collection.find({}).toArray(function(err, docs) {
-    assert.equal(err, null);
-    console.log("Found the following records");
-    console.log(docs)
-    callback(docs);
-  });
-}
+let meals;
 
 // Use connect method to connect to the Server
 client.connect(function(err) {
   assert.equal(null, err);
   console.log("Connected successfully to server");
-
   const db = client.db(dbName);
-  findDocuments(db, function() {
-
-  // Creating documents inside of meals
-  // db.collection('meals').insertMany([
-  //   {a : 1}, {a : 2}, {a : 3}
-  // ], function (err, res) {
-  //   console.log(err, res)
-  // }); 
-
-  client.close();
+  const collection = db.collection('meals');
+  collection.find({}).toArray(function(err, docs) {
+    assert.equal(err, null);
+    meals = docs;
+    client.close();
   });
 });
-
-
 
 app.use(cors());
 app.use(express.json());
