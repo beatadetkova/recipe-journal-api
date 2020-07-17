@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --ignore 'meals.json' --ignore 'recipes.json' server.js",
+    "start.api": "nodemon --ignore 'meals.json' --ignore 'recipes.json' server.js",
+    "start.db": "mongod --dbpath=./data",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

@@ -18,9 +18,6 @@ let meals;
 app.use(cors());
 app.use(express.json());
 
-//setting the port.
-app.set('port', process.env.PORT || 5000);
-
 app.get('/meals',(req, res) => {
  res.json(meals);
 });
