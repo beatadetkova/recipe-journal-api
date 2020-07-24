@@ -33,15 +33,19 @@ app.get(`/meals/:mealName/recipes`, async (req, res) => {
 });
 
 app.post('/meals/:mealName/recipes/add', async (req, res) => {
-  const matchingMeal = getMatchingMeal(meals, req.params.mealName);
-  const data = {
-    ...req.body,
-    mealId: matchingMeal._id,
-  } 
-  console.log(data);
-  await addRecipe(client, dbOpts.dbName, data);
-  const recipes = await getRecipes(client, dbOpts.dbName, matchingMeal._id);
-  res.json(recipes)
+  if (Object.values(req.body).includes(null) && req.body.constructor === Object) {
+    res.status(400).json({ message: 'Empty body'})
+  } else {
+    const matchingMeal = getMatchingMeal(meals, req.params.mealName);
+    const data = {
+      ...req.body,
+      mealId: matchingMeal._id,
+    } 
+    console.log(data);
+    await addRecipe(client, dbOpts.dbName, data);
+    const recipes = await getRecipes(client, dbOpts.dbName, matchingMeal._id);
+    res.json(recipes)
+  }
 });
 
 //Binding to localhost://5000
