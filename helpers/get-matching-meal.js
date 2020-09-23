@@ -1,3 +1,3 @@
-module.exports = (meals, mealName) => {
-  return meals.find(meal => meal.name === mealName);
-}
+const match = (mealName) => (meal) => meal.name === mealName;
+
+module.exports = (meals, mealName) => meals.find(match(mealName));
