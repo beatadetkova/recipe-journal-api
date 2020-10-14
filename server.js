@@ -41,7 +41,6 @@ app.post('/meals/:mealName/recipes/add', async (req, res) => {
       ...req.body,
       mealId: matchingMeal._id,
     };
-    console.log(data);
     await addRecipe(client, dbOpts.dbName, data);
     const recipes = await getRecipes(client, dbOpts.dbName, matchingMeal._id);
     res.json(recipes);
