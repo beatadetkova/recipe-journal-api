@@ -28,7 +28,7 @@ app.get('/meals', (req, res) => {
 
 app.get('/meals/:mealName/recipes', async (req, res) => {
   const matchingMeal = getMatchingMeal(meals, req.params.mealName);
-  const recipes = await getRecipes(client, dbOpts.dbName, matchingMeal.id);
+  const recipes = await getRecipes(client, dbOpts.dbName, matchingMeal._id);
   res.json(recipes);
 });
 
@@ -39,11 +39,11 @@ app.post('/meals/:mealName/recipes/add', async (req, res) => {
     const matchingMeal = getMatchingMeal(meals, req.params.mealName);
     const data = {
       ...req.body,
-      mealId: matchingMeal.id,
+      mealId: matchingMeal._id,
     };
     console.log(data);
     await addRecipe(client, dbOpts.dbName, data);
-    const recipes = await getRecipes(client, dbOpts.dbName, matchingMeal.id);
+    const recipes = await getRecipes(client, dbOpts.dbName, matchingMeal._id);
     res.json(recipes);
   }
 });
@@ -52,6 +52,7 @@ app.post('/meals/:mealName/recipes/add', async (req, res) => {
 app.listen(port, async () => {
   await client.connect();
   meals = await getAllMeals(client, dbOpts.dbName);
+  console.log(meals);
   console.log(`Express server started at port ${port}`);
 });
 
